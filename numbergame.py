@@ -13,6 +13,8 @@ class WordGame():
         self.timeScore = 0
         self.finalScore = 0
 
+    ###########################################################################
+
     def introduction(self):
         print("Welcome to the game, %s!\n" % self.name)
         time.sleep(2)
@@ -25,14 +27,15 @@ class WordGame():
         "If you enter a letter or spacebar in your answer, you will lose 3 points!\n")
         time.sleep(2)
 
+    ###########################################################################
+
     def difficultyLevel(self):
         difficultyDisplay = self.difficultyTypes.copy()
         difficultyDisplay.remove(self.difficulty)
         print("The current difficulty level is '%s'" % self.difficulty)
         print("There are two other difficulty levels, '%s' and '%s'" \
         % (difficultyDisplay[0], difficultyDisplay[1]))
-        statement = "\nWould you like to change the difficulty level? Enter \
- [Yes] or [No]\n"
+        statement = "\nWould you like to change the difficulty level? Enter [Yes] or [No]\n"
         Yesresult = "Changing difficulty..."
         noResult = "Difficulty stays the same\n"
 
@@ -65,6 +68,8 @@ class WordGame():
                 self.min = 100000
                 self.max = 1000000
 
+    ###########################################################################
+
     def ready(self):
         input("All set! Are you ready? Press [Enter] to begin")
         print('Game starting in:')
@@ -75,6 +80,8 @@ class WordGame():
         print('1...')
         time.sleep(1)
 
+    ###########################################################################
+
     def game(self):
         timeStart = time.time()
 
@@ -82,6 +89,7 @@ class WordGame():
             number = random.randint(self.min, self.max)
             print("Number ", x)
             print(number)
+
             while True:
                 try:
                     inputnumber = int(input("Enter number above: "))
@@ -101,6 +109,7 @@ class WordGame():
         self.timeScore = (self.score/50)*(40/timeTotal)
         self.finalScore = self.timeScore + self.score
 
+    ###########################################################################
 
     def results(self):
         print('Here is your final score, %s!' %self.name)
@@ -119,11 +128,15 @@ class WordGame():
         else:
             print("Wow, good job, %s! You did really well!" % self.name)
 
+    ###########################################################################
+
     def tryAgain(self):
         statement = 'Do you want to play again? Enter [yes] or [no]\n'
         Yesresult = 'Starting again!'
         noResult = "Okay, we'll miss you. Come back soon! :("
         return self.continuer(statement, Yesresult, noResult)
+
+    ###########################################################################
 
     def resetValues(self):
         print('Reseting values...\n')
@@ -131,33 +144,42 @@ class WordGame():
         self.timeScore = 0
         self.finalScore = 0
 
+    ###########################################################################
+
     def continuer(self, statement, Yesresult, noResult):
         while True:
-
             yesno = input(statement)
 
             if yesno.lower() == 'yes':
                 print(Yesresult, '\n')
                 return True
                 break
-
             elif yesno.lower() == 'no':
                 print(noResult, '\n')
                 return False
                 break
-
             else:
                 print('Invalid input, try again')
 
+###############################################################################
+"""Main application"""
 
-name = input("Please enter your name:")
-p1 = WordGame(name)
-p1.introduction()
-while True:
-    p1.difficultyLevel()
-    p1.ready()
-    p1.game()
-    p1.results()
-    if p1.tryAgain() == False:
-        break
-    p1.resetValues()
+def main():
+    name = input("Please enter your name:")
+    p1 = WordGame(name)
+    p1.introduction()
+
+    while True:
+        p1.difficultyLevel()
+        p1.ready()
+        p1.game()
+        p1.results()
+
+        if p1.tryAgain() == False:
+            break
+
+        p1.resetValues()
+
+###############################################################################
+"""Runnable"""
+main()
